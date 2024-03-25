@@ -9,19 +9,19 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
-    
-    private String content;
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    
-    @ManyToOne
-    @JoinColumn(name = "query_id")
-    private Query query;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long commentId;
+
+	private String content;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "query_id")
+	private Query query;
 
 	public Long getCommentId() {
 		return commentId;
@@ -71,6 +71,5 @@ public class Comment {
 	public Comment() {
 		super();
 	}
-    
-    
+
 }

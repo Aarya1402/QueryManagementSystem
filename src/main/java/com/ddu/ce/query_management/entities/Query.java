@@ -9,24 +9,22 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Query {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long queryId;
-    
-    private String content;
-    
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long queryId;
+
+	private String content;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	private QueryStatus status;
-    
-    public enum QueryStatus {
-        PENDING,
-        APPROVED,
-        DELETED,
-    }
-    
+
+	public enum QueryStatus {
+		PENDING, APPROVED, DELETED,
+	}
+
 	public Long getQueryId() {
 		return queryId;
 	}
@@ -51,10 +49,9 @@ public class Query {
 		this.user = user;
 	}
 
-
 	public Query() {
 		super();
-    	this.status = QueryStatus.PENDING;
+		this.status = QueryStatus.PENDING;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -70,7 +67,5 @@ public class Query {
 	public String toString() {
 		return "Query [queryId=" + queryId + ", content=" + content + ", user=" + user + ", status=" + status + "]";
 	}
-    
-    
 
 }
