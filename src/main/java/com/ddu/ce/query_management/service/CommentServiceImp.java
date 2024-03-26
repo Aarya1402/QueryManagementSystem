@@ -8,15 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ddu.ce.query_management.dao.CommentDAO;
+import com.ddu.ce.query_management.dao.CommentDAOImp;
 import com.ddu.ce.query_management.entities.Comment;
 
 @Service
 public class CommentServiceImp implements CommentService {
 
-	private CommentDAO commentDAO;
+	private CommentDAOImp commentDAO;
 
 	@Autowired
-	public CommentServiceImp(@Qualifier("commentDAOJpaImp") CommentDAO theCommentDAO) {
+	public CommentServiceImp(@Qualifier("commentDAOJpaImp") CommentDAOImp theCommentDAO) {
 		commentDAO = theCommentDAO;
 	}
 

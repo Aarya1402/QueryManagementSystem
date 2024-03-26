@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import com.ddu.ce.query_management.dao.QueryDAO;
+import com.ddu.ce.query_management.dao.QueryDAOImp;
 import com.ddu.ce.query_management.entities.Query;
 
 public class QueryServiceImp implements QueryService {
 
-	private QueryDAO queryDAO;
+	private QueryDAOImp queryDAO;
 
 	@Autowired
-	public QueryServiceImp(@Qualifier("QueryDAOJpaImp") QueryDAO theQueryDAO) {
+	public QueryServiceImp(@Qualifier("QueryDAOJpaImp") QueryDAOImp theQueryDAO) {
 		queryDAO = theQueryDAO;
 	}
 
