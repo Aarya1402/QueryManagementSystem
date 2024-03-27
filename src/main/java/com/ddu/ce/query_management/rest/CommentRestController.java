@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ddu.ce.query_management.entities.Comment;
+import com.ddu.ce.query_management.entities.Query;
+import com.ddu.ce.query_management.entities.Query.QueryStatus;
 import com.ddu.ce.query_management.service.CommentService;
+import com.ddu.ce.query_management.service.QueryServiceImp;
 
 @RestController
 @RequestMapping("/api")
@@ -55,21 +58,14 @@ public class CommentRestController {
 	}
 
 	// add mapping for POST /comment - add new comment
+	 @PostMapping("/Comment")
+	    public Comment addComment(@RequestBody Comment theComment){
 
-	@PostMapping("/Comment")
-	public Comment addComment(@RequestBody Comment theComment) {
+	        // Proceed to add the comment
+	        commentService.save(theComment);
 
-		// also just in case they pass an id in JSON ... set id to 0
-		// this is to force a save of new item ... instead of update
-
-		// take a look at this...
-		// theComment.setId(0);
-
-		commentService.save(theComment);
-
-		return theComment;
-	}
-
+	        return theComment;
+	    }
 	// add mapping for PUT /comment - update existing comment
 
 	@PutMapping("/Comment")

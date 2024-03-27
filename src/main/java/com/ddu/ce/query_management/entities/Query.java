@@ -11,13 +11,9 @@ import jakarta.persistence.ManyToOne;
 public class Query {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long queryId;
+	private int queryId;
 
 	private String content;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
 
 	private QueryStatus status;
 
@@ -25,11 +21,11 @@ public class Query {
 		PENDING, APPROVED, DELETED,
 	}
 
-	public Long getQueryId() {
+	public int getQueryId() {
 		return queryId;
 	}
 
-	public void setQueryId(Long queryId) {
+	public void setQueryId(int queryId) {
 		this.queryId = queryId;
 	}
 
@@ -37,17 +33,18 @@ public class Query {
 		return content;
 	}
 
+	public QueryStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(QueryStatus status) {
+		this.status = status;
+	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public Query() {
 		super();
@@ -55,17 +52,17 @@ public class Query {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Query(Long queryId, String content, User user, String status) {
+	public Query(int queryId, String content,  String status) {
 		super();
 		this.queryId = queryId;
 		this.content = content;
-		this.user = user;
+	
 		this.status = QueryStatus.PENDING;
 	}
 
 	@Override
 	public String toString() {
-		return "Query [queryId=" + queryId + ", content=" + content + ", user=" + user + ", status=" + status + "]";
+		return "Query [queryId=" + queryId + ", content=" + content + ", status=" + status + "]";
 	}
 
 }
