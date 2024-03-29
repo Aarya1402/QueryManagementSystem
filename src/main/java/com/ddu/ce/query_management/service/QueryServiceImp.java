@@ -4,20 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.ddu.ce.query_management.dao.QueryDAO;
-import com.ddu.ce.query_management.dao.QueryDAOImp;
 import com.ddu.ce.query_management.entities.Query;
 
-public class QueryServiceImp implements QueryService {
+@Service
+public class QueryServiceImp implements QueryService{
 
-	private QueryDAOImp queryDAO;
-
+	private QueryDAO queryDAO;
+	
 	@Autowired
-	public QueryServiceImp(@Qualifier("QueryDAOJpaImp") QueryDAOImp theQueryDAO) {
+	public QueryServiceImp(@Qualifier("QueryDAOImp") QueryDAO theQueryDAO) {
 		queryDAO = theQueryDAO;
 	}
-
+	
 	@Override
 	@Transactional
 	public List<Query> findAll() {
@@ -37,7 +38,7 @@ public class QueryServiceImp implements QueryService {
 	public void save(Query query) {
 		queryDAO.save(query);
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class QueryServiceImp implements QueryService {
 	public void delete(int queryId) {
 		queryDAO.delete(queryId);
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class QueryServiceImp implements QueryService {
 	public void update(Query query) {
 		queryDAO.save(query);
 		// TODO Auto-generated method stub
-
+		
 	}
-
+	
 }

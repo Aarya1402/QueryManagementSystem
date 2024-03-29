@@ -3,6 +3,7 @@ package com.ddu.ce.query_management.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.ddu.ce.query_management.entities.Comment;
@@ -13,6 +14,7 @@ import jakarta.persistence.TypedQuery;
 
 
 @Repository
+@Qualifier("commentDAOImp")
 public class CommentDAOImp implements CommentDAO{
 	
 	private EntityManager entityManager;
@@ -48,13 +50,24 @@ public class CommentDAOImp implements CommentDAO{
 
 	@Override
 	public List<Comment> findByQueryId(int QueryId) {
-		return null;
+		TypedQuery<Comment> query = entityManager.createQuery(
+	            "SELECT c FROM Comment c WHERE c.query.id = :queryId", Comment.class);
+	    query.setParameter("queryId", QueryId);
+	    return query.getResultList();
 		
 	}
 
 	@Override
 	public void save(Comment comment) {
-		entityManager.persist(comment);
+		//entityManager.persist(comment);
+		System.out.println("Before setting:-"+comment.getCommentId());
+		
+		// save or update the comment
+		Comment dbComment = entityManager.merge(comment);
+				
+		// update with id from db ... so we can get generated id for save/insert
+		
+		 System.out.println("After setting:-"+comment.getCommentId());
 	}
 
 	@Override

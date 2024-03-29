@@ -13,21 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ddu.ce.query_management.entities.Comment;
-import com.ddu.ce.query_management.entities.Query;
-import com.ddu.ce.query_management.entities.Query.QueryStatus;
 import com.ddu.ce.query_management.service.CommentService;
-import com.ddu.ce.query_management.service.QueryServiceImp;
+
 
 @RestController
 @RequestMapping("/api")
 public class CommentRestController {
 	private CommentService commentService;
-
+	
 	@Autowired
 	public CommentRestController(CommentService theCommentService) {
 		commentService = theCommentService;
 	}
-
+	
 	// expose "/comment" and return list of comment
 	@GetMapping("/Comment")
 	public List<Comment> findAll() {
@@ -35,63 +33,70 @@ public class CommentRestController {
 	}
 
 	// add mapping for GET /comment/{commentId}
-
+	
 	@GetMapping("/Comment/{commentId}")
 	public Comment getComment(@PathVariable int commentId) {
-
+		
 		Comment theComment = commentService.findById(commentId);
-
+		
 		if (theComment == null) {
 			throw new RuntimeException("Comment id not found - " + commentId);
 		}
-
+		
 		return theComment;
 	}
-
 	@GetMapping("/Comment/query/{QueryId}")
-	public List<Comment> findByQueryId(@PathVariable int QueryId) {
+	public List<Comment> findByQueryId(@PathVariable int QueryId){
 		List<Comment> comment = commentService.findByQueryId(QueryId);
 		if (comment == null || comment.isEmpty()) {
-			throw new RuntimeException("No comments found for query id - " + QueryId);
-		}
-		return comment;
-	}
-
-	// add mapping for POST /comment - add new comment
-	 @PostMapping("/Comment")
-	    public Comment addComment(@RequestBody Comment theComment){
-
-	        // Proceed to add the comment
-	        commentService.save(theComment);
-
-	        return theComment;
+	        throw new RuntimeException("No comments found for query id - " + QueryId);
 	    }
-	// add mapping for PUT /comment - update existing comment
-
-	@PutMapping("/Comment")
-	public Comment updateEmployee(@RequestBody Comment theComment) {
-
+	    return comment;
+	}
+	
+	// add mapping for POST /comment - add new comment
+	
+	@PostMapping("/Comment")
+	public Comment addComment(@RequestBody Comment theComment) {
+		
+		// also just in case they pass an id in JSON ... set id to 0
+		// this is to force a save of new item ... instead of update
+		
+		//take a look at this...
+		//theComment.setCommentId(0);
+		
 		commentService.save(theComment);
-
+		
 		return theComment;
 	}
-
+	
+	// add mapping for PUT /comment - update existing comment
+	
+	@PutMapping("/Comment")
+	public Comment updateEmployee(@RequestBody Comment theComment) {
+		
+		commentService.save(theComment);
+		
+		return theComment;
+	}
+	
 	// add mapping for DELETE /comment/{commentId} - delete comment
-
+	
 	@DeleteMapping("/Comment/{commentId}")
 	public String deleteComment(@PathVariable int commentId) {
-
+		
 		Comment tempComment = commentService.findById(commentId);
-
+		
 		// throw exception if null
-
+		
 		if (tempComment == null) {
 			throw new RuntimeException("Comment id not found - " + commentId);
 		}
-
+		
 		commentService.deleteById(commentId);
-
+		
 		return "Deleted Comment id - " + commentId;
 	}
+	
 
 }

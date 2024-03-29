@@ -9,23 +9,22 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int commentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long commentId;
+    
+    private String content;
+    
+    
+    @ManyToOne
+    @JoinColumn(name = "query_id")
+    private Query query;
 
-	private String content;
-
-	
-
-	@ManyToOne
-	@JoinColumn(name = "query_id")
-	private Query query;
-
-	public int getCommentId() {
+	public Long getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(int commentId) {
+	public void setCommentId(Long commentId) {
 		this.commentId = commentId;
 	}
 
@@ -47,7 +46,7 @@ public class Comment {
 		this.query = query;
 	}
 
-	public Comment(int commentId, String content, Query query) {
+	public Comment(Long commentId, String content, Query query) {
 		super();
 		this.commentId = commentId;
 		this.content = content;
@@ -57,11 +56,12 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", content=" + content +  ", query=" + query + "]";
+		return "Comment [commentId=" + commentId + ", content=" + content + ", query=" + query + "]";
 	}
 
 	public Comment() {
 		super();
 	}
-
+    
+    
 }

@@ -8,19 +8,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ddu.ce.query_management.dao.CommentDAO;
-import com.ddu.ce.query_management.dao.CommentDAOImp;
 import com.ddu.ce.query_management.entities.Comment;
 
 @Service
-public class CommentServiceImp implements CommentService {
+public class CommentServiceImp implements CommentService{
 
-	private CommentDAOImp commentDAO;
-
+	private CommentDAO commentDAO;
+	
 	@Autowired
-	public CommentServiceImp(@Qualifier("commentDAOJpaImp") CommentDAOImp theCommentDAO) {
+	public CommentServiceImp(@Qualifier("commentDAOImp") CommentDAO theCommentDAO) {
 		commentDAO = theCommentDAO;
 	}
-
+	
+	
 	@Override
 	@Transactional
 	public List<Comment> findAll() {
@@ -47,7 +47,7 @@ public class CommentServiceImp implements CommentService {
 	public void save(Comment comment) {
 		commentDAO.save(comment);
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class CommentServiceImp implements CommentService {
 	public void deleteById(int Id) {
 		commentDAO.deleteById(Id);
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class CommentServiceImp implements CommentService {
 	public void update(Comment comment) {
 		commentDAO.save(comment);
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
